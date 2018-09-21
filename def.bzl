@@ -36,7 +36,7 @@ def _gazelle_runner_impl(ctx):
         args.extend(["-build_tags", ",".join(ctx.attr.build_tags)])
     args.extend(ctx.attr.extra_args)
 
-    out_file = ctx.actions.declare_file(ctx.label.name + ".bash")
+    out_file = ctx.actions.declare_file(ctx.label.name + ".sh")
     substitutions = {
         "@@ARGS@@": shell.array_literal(args),
         "@@GAZELLE_LABEL@@": shell.quote(str(ctx.attr.gazelle.label)),
@@ -88,7 +88,7 @@ _gazelle_runner = _go_rule(
         "prefix": attr.string(),
         "extra_args": attr.string_list(),
         "_template": attr.label(
-            default = "@bazel_gazelle//internal:gazelle.bash.in",
+            default = "@bazel_gazelle//internal:gazelle.sh.in",
             allow_single_file = True,
         ),
     },
